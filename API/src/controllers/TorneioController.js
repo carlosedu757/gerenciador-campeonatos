@@ -5,7 +5,7 @@ class TorneioController{
     async store(req, res) {
         try {
           const novoTorneio = await Torneio.create({
-            cliente_id:req.params.id,
+            id_cliente:req.params.id,
             ...req.body
           });
           console.log(novoTorneio)
@@ -23,6 +23,22 @@ class TorneioController{
       return res.json({
         torneios
       })
+    }
+    
+    async delete(req, res){
+      try{
+        const idCliente = req.params.id;
+        const nomeTorneio = req.params.nome;
+        await Torneio.delete(idCliente, nomeTorneio);
+        return res.json({
+          "sucess":"true"
+        })
+      }catch(e){
+        return res.status(400).json(
+          console.log(e)
+        );
+      }
+
     }
 }
 

@@ -52,7 +52,9 @@ class ClienteController {
   async delete(req, res) {
     try {
       await Cliente.delete(req.params.id);
-      return res.json("sucess");
+      return res.json({
+        "sucess":"true"
+      });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),

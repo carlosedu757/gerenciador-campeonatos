@@ -1,0 +1,33 @@
+CREATE TABLE pi.clientes(
+    id int auto_increment primary key,
+    nome varchar(100) not null unique,
+    email varchar(100) not null unique,
+    password_hash varchar(200) not null
+);
+
+CREATE TABLE pi.torneio(
+    id int auto_increment,
+    id_cliente int,
+    nome varchar(100) not null unique,
+    descricao varchar(300) not null unique,
+    qtd_times int not null,
+    premiacao double,
+    constraint CHPandCHEtorneio
+	  primary key(id, id_cliente),
+        foreign key(id_cliente) references clientes(id)
+        on delete cascade
+        on update cascade
+);
+
+CREATE TABLE pi.time(
+	id int auto_increment,
+    id_torneio int,
+    nome varchar(50) not null unique,
+    abrev varchar(5) not null,
+    constraint CHPandCHEtime
+	  primary key(id, id_torneio),
+        foreign key(id_torneio) references torneio(id)
+        on delete cascade
+        on update cascade
+);
+

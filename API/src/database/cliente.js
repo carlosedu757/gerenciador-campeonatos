@@ -22,8 +22,8 @@ exports.showClienteByEmail = async function(email){
 exports.storeCliente = async function(cliente){
     const conn = await connect();
     cliente.password = await bcryptjs.hash(cliente.password, 8);
-    const values = [cliente.nome, cliente.email, cliente.password, new Date(), new Date()];
-    const comandoSql = 'INSERT INTO clientes(nome, email, password_hash, created_at, updated_at) VALUES(?, ?, ?, ?, ?);';
+    const values = [cliente.nome, cliente.email, cliente.password];
+    const comandoSql = 'INSERT INTO clientes(nome, email, password_hash) VALUES(?, ?, ?);';
     const [rows] = await conn.query(comandoSql, values);
     return rows
 }
@@ -33,8 +33,8 @@ exports.updateCliente = async function(cliente, id){
     const [rows] = await conn.query('SELECT * FROM clientes WHERE id = ?', id);
 
     cliente.password ? cliente.password = await bcryptjs.hash(cliente.password, 8) : cliente.password = rows[0].password_hash;
-    const values = [cliente.nome || rows[0].nome, cliente.email || rows[0].email, cliente.password, new Date(), id];
-    const comandoSql = 'UPDATE clientes SET nome=?, email=?, password_hash=?, updated_at=? WHERE id=?';
+    const values = [cliente.nome || rows[0].nome, cliente.email || rows[0].email, cliente.password, id];
+    const comandoSql = 'UPDATE clientes SET nome=?, email=?, password_hash=? WHERE id=?';
     const [rows1] = await conn.query(comandoSql, values);
     return rows1;
 }
