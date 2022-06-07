@@ -5,6 +5,7 @@ import express from "express";
 import homeRoutes from "./src/routes/homeRoutes";
 import clienteRoutes from "./src/routes/clienteRoutes";
 import torneioRoutes from "./src/routes/torneioRoutes";
+import tokenRoutes from "./src/routes/tokenRoutes";
 
 class App{
     constructor(){
@@ -22,6 +23,7 @@ class App{
         this.app.use('/', homeRoutes)
         this.app.use('/clientes', clienteRoutes);
         this.app.use('/torneios', torneioRoutes);
+        this.app.use('/token', tokenRoutes);
     }
 }
 

@@ -1,5 +1,6 @@
 import clienteQuerys from '../database/cliente';
 import validator from 'email-validator';
+import bcryptjs from'bcryptjs';
 
 export default class Cliente{
     static async create(cliente){
@@ -65,5 +66,17 @@ export default class Cliente{
 
         const dados = await clienteQuerys.deleteCliente(id);
         return dados;
+    }
+
+    static async buscarByEmail(email){
+        return clienteQuerys.showClienteByEmail(email);
+    }
+
+    static async buscar(id, email){
+        return await clienteQuerys.showCliente(id, email);
+    }
+
+    static passwordIsValid(password, password_hash) {
+        return bcryptjs.compare(password, password_hash);
     }
 } 

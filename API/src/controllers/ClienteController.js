@@ -51,7 +51,7 @@ class ClienteController {
   // Delete
   async delete(req, res) {
     try {
-      await Cliente.delete(req.params.id);
+      await Cliente.delete(req.userId);
       return res.json({
         "sucess":"true"
       });

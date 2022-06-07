@@ -15,7 +15,14 @@ exports.showClienteById = async function(id){
 
 exports.showClienteByEmail = async function(email){
     const conn = await connect();
-    const [rows] = conn.query('SELECT * FROM clientes WHERE email=?', email);
+    const [rows] = await conn.query('SELECT * FROM clientes WHERE email=?', email);
+    return rows[0];
+}
+
+exports.showCliente = async function(id, email){
+    const conn = await connect();
+    const values = [email, id];
+    const [rows] = await conn.query('SELECT * FROM clientes WHERE email=? AND id=?', values);
     return rows[0];
 }
 
