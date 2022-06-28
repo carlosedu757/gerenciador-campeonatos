@@ -1,0 +1,13 @@
+
+
+.container img {
+    margin: 5% 0 50px;
+    border-radius: 30%;
+    width: 25%;
+}
+
+.container h3{
+    margin: 0.3% 0;
+    color: white;
+    align-items: left;
+}
