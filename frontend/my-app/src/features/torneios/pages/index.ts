@@ -1,0 +1,1 @@
+export { Torneios } from "./Torneios";
