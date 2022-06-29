@@ -1,0 +1,1 @@
+export { NovoTorneio } from "./NovoTorneio";
