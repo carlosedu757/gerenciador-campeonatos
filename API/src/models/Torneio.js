@@ -20,6 +20,11 @@ export default class Torneio{
         const dados = await torneioQuerys.indexTorneiosByNome(nome);
         return dados;
     }
+    
+    static async update(idCliente, torneio, nomeTorneio){
+        const dados = await torneioQuerys.updateTorneio(idCliente, torneio, nomeTorneio);
+        return dados;
+    }
 
 
 }

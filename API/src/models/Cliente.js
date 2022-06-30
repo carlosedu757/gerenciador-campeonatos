@@ -26,8 +26,18 @@ export default class Cliente{
                 errors
             }
         }
-        const dados = await clienteQuerys.storeCliente(cliente);
-        return dados;
+
+        try {
+            const dados = await clienteQuerys.storeCliente(cliente);
+            return dados;
+        } catch (e) {
+            if(e.code==='ER_DUP_ENTRY'){
+                errors.push({message: 'Email já existe'});
+                throw{
+                    errors
+                }
+            }
+        }
     }
 
     static async update(cliente, id){
@@ -69,7 +79,11 @@ export default class Cliente{
     }
 
     static async buscarByEmail(email){
-        return clienteQuerys.showClienteByEmail(email);
+        return await clienteQuerys.showClienteByEmail(email);
+    }
+
+    static async buscarById(id){
+        return await clienteQuerys.showClienteById(id);
     }
 
     static async buscar(id, email){

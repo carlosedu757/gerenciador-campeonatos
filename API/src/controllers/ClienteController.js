@@ -1,11 +1,24 @@
 import Cliente from '../models/Cliente';
+import Foto from '../models/Foto';
 
 class ClienteController {
+  async show(req, res) {
+    try {
+      const user = await Cliente.buscarById(req.userId || 3);
+      const [foto] = await Foto.indexByCHE(req.userId || 3);
+      const fotoUrl = `http://localhost:3000/images/${foto.filename}/`;
+      const {nome, email } = user;
+      return res.json({ nome, email, fotoUrl });
+    } catch (e) {
+      return res.json(null);
+    }
+  }
+
+
   async store(req, res) {
     try {
-      const novoCliente = await Cliente.create(req.body);
-      const { id, nome, email } = novoCliente;
-      return res.json({ id, nome, email });
+      const teste = await Cliente.create(req.body);
+      return res.json({"success":"true"});
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message)
@@ -13,37 +26,17 @@ class ClienteController {
     }
   }
 
-  // Index
-  async index(req, res) {
-    try {
-      const clientes = await Cliente.findAll({ attributes: ['id', 'nome', 'email'] });
-      return res.json(clientes);
-    } catch (e) {
-      return res.json(null);
-    }
-  }
-
-  // Show
-  async show(req, res) {
-    try {
-      const cliente = await Cliente.findByPk(req.params.id);
-
-      const { id, nome, email } = cliente;
-      return res.json({ id, nome, email });
-    } catch (e) {
-      return res.json(null);
-    }
-  }
 
   // Update
   async update(req, res) {
     try {
-      const novosDados = await Cliente.update(req.body, req.params.id);
-      const  [id, nome, email]  = novosDados;
-      return res.json({ id, nome, email });
+      await Cliente.update(req.body, req.userId);
+      return res.json({"sucess":"true"});
     } catch (e) {
       return res.status(400).json(
-        console.log(e)
+        {
+          errors: e.errors.map((err) => err.message)
+        }
       );
     }
   }

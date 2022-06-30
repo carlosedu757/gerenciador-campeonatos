@@ -3,10 +3,9 @@ import clienteController from '../controllers/ClienteController';
 import loginRequired from '../middlewares/loginRequired';
 const router = new Router();
 
-router.get('/', clienteController.index);
 router.post('/cadastro', clienteController.store);
-router.put('/atualizar/:id', loginRequired, clienteController.update);
+router.put('/atualizar/', loginRequired, clienteController.update);
 router.delete('/apagar/', loginRequired, clienteController.delete);
-
+router.get('/index', clienteController.show);
 
 export default router;

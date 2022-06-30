@@ -20,6 +20,18 @@ exports.storeTorneio = async function(torneio){
     return dados;
 }
 
+exports.updateTorneio = async function(idCliente, torneio, nomeTorneio){
+    const conn = await connect();
+    nomeTorneio = String(nomeTorneio).replace(/-/g, ' ');
+    const [rows] = await conn.query('SELECT * FROM torneio WHERE nome = ?', nomeTorneio);
+
+    const values = [torneio.nome || rows[0].nome, torneio.descricao || rows[0].descricao, torneio.qtd_times || rows[0].qtd_times, torneio.premiacao || rows[0].premiacao, nomeTorneio, idCliente];
+
+    const comandoSql = 'UPDATE torneio SET nome=?, descricao=?, qtd_times=?, premiacao=? WHERE nome=? AND id_cliente=?';
+    const [rows1] = await conn.query(comandoSql, values);
+    return rows1;
+}
+
 exports.deleteTorneio = async function(idCliente, nome){
     const conn = await connect();
     const comandoSql = 'DELETE FROM torneio WHERE id_cliente=? AND nome=?';
