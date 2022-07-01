@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { InicioRoutes } from '../features/inicio/constants/routes';
 import { LoginRoutes } from "../features/login/constants/routes";
 import { ITodo } from '../interfaces';
+import { ITorneio } from '../interfaces/ITorneio';
 import { TodoService } from '../services';
 
 export const useTodo = () => {
@@ -24,10 +25,19 @@ export const useTodo = () => {
     navigate(LoginRoutes.login);
   }, [navigate]);
 
+  const createTorneio = useCallback(async (todo: Pick<ITorneio, 'nome' | 'descricao' | 'qtd_times' | 'premiacao'>) => {
+    const { status } = await TodoService.createTorneio(todo);
+
+    if (status !== 200) throw new Error();
+    navigate(InicioRoutes.inicio);
+  }, [navigate]);
+
   const login = useCallback(async (todo: Pick<ITodo, 'email' | 'password'>) => {
     const { status } = await TodoService.login(todo);
 
     if (status !== 200) throw new Error();
+    
+    localStorage.setItem("1","1");
     navigate(InicioRoutes.inicio);
   }, [navigate]);
 
@@ -41,6 +51,7 @@ export const useTodo = () => {
   return {
     tasks,
     getAllTodos,
+    createTorneio,
     createTodo,
     updateTodo,
     login,

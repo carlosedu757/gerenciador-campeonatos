@@ -26,6 +26,7 @@ export function Inicio() {
       <h1>Bem-vindo, name!</h1>
       <button type="button" onClick={goPageTorneios}>Meus Torneios</button>
       <button type="button" onClick={goPageNovoTorneio}>Criar Torneio</button>
+      <button type="button">Atualizar Dados</button>
       <button type="button" onClick={goPageHome}>Sair</button>
     </div>
   )
