@@ -6,6 +6,7 @@ import { CadastroRoutes } from "../../cadastro/constants/routes";
 import './HomePage.css';
 
 export const HomePage: React.FC = () => {
+
   const navigate = useNavigate();
 
   const goPageLogin = () => {

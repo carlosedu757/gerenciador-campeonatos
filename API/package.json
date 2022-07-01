@@ -15,6 +15,7 @@
     "sucrase": "^3.21.0"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "email-validator": "^2.0.4",
